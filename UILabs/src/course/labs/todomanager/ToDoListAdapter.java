@@ -10,12 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
+import android.widget.*;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class ToDoListAdapter extends BaseAdapter {
@@ -24,10 +20,14 @@ public class ToDoListAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
 
 	private static final String TAG = "Lab-UserInterface";
+    private ArrayAdapter<CharSequence> mSpinnerAdapter;
 
-	public ToDoListAdapter(Context context) {
+    public ToDoListAdapter(Context context) {
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mSpinnerAdapter = ArrayAdapter.createFromResource(context,
+                R.array.priorities, android.R.layout.simple_spinner_item);
+        mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 	}
 
 	// Add a ToDoItem to the adapter
@@ -85,7 +85,7 @@ public class ToDoListAdapter extends BaseAdapter {
 	private static class ViewHolder {
         TextView titleView;
         CheckBox statusView;
-        TextView priorityView;
+        Spinner priorityView;
         TextView dateView;
     }
 
@@ -100,7 +100,8 @@ public class ToDoListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
             holder.statusView = (CheckBox) convertView.findViewById(R.id.statusCheckBox);
-            holder.priorityView = (TextView) convertView.findViewById(R.id.priorityView);
+            holder.priorityView = (Spinner) convertView.findViewById(R.id.priorityView);
+            holder.priorityView.setAdapter(mSpinnerAdapter);
             holder.dateView = (TextView) convertView.findViewById(R.id.dateView);
             convertView.setTag(holder);
         } else {
@@ -133,11 +134,23 @@ public class ToDoListAdapter extends BaseAdapter {
             }
         });
 
-        holder.priorityView.setText(toDoItem.getPriority().toString());
 
         holder.dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
+        holder.priorityView.setSelection(toDoItem.getPriority().ordinal());
 
-		// Return the View you just created
+        holder.priorityView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                toDoItem.setPriority(ToDoItem.Priority.values()[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(TAG, "nothing selected from spinner listener");
+            }
+        });
+
+        // Return the View you just created
 		return convertView;
 
 	}
