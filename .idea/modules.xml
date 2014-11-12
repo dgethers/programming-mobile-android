@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/IntentsLabTest/IntentsLabTest.iml" filepath="$PROJECT_DIR$/IntentsLabTest/IntentsLabTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyBrowser/MyBrowser.iml" filepath="$PROJECT_DIR$/MyBrowser/MyBrowser.iml" />
       <module fileurl="file://$PROJECT_DIR$/NotificationsLab/NotificationsLab.iml" filepath="$PROJECT_DIR$/NotificationsLab/NotificationsLab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NotificationsLabTest/NotificationsLabTest.iml" filepath="$PROJECT_DIR$/NotificationsLabTest/NotificationsLabTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/PermissionsLab/PermissionsLab.iml" filepath="$PROJECT_DIR$/PermissionsLab/PermissionsLab.iml" />
       <module fileurl="file://$PROJECT_DIR$/PermissionsLabTest/PermissionsLabTest.iml" filepath="$PROJECT_DIR$/PermissionsLabTest/PermissionsLabTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/UILabs/UILabs.iml" filepath="$PROJECT_DIR$/UILabs/UILabs.iml" />
