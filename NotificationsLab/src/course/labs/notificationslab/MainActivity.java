@@ -88,8 +88,8 @@ public class MainActivity extends Activity implements SelectionListener {
 			// TODO:
 			// Show a Toast Notification to inform user that 
 			// the app is "Downloading Tweets from Network"
-			Log.i (TAG,"Issuing Toast Message");
-
+			Log.i(TAG, "Issuing Toast Message");
+			Toast.makeText(getApplicationContext(), "Downloading Tweets from Network", Toast.LENGTH_LONG).show();
 
 			
 			
@@ -110,7 +110,9 @@ public class MainActivity extends Activity implements SelectionListener {
 					// Let sender know that the Intent was received
 					// by setting result code to MainActivity.IS_ALIVE
 
-					
+					if (isOrderedBroadcast()) {
+						setResultCode(MainActivity.IS_ALIVE);
+					}
 
 
 					
@@ -186,7 +188,7 @@ public class MainActivity extends Activity implements SelectionListener {
 		// TODO:
 		// Register the BroadcastReceiver to receive a 
 		// DATA_REFRESHED_ACTION broadcast
-
+		registerReceiver(mRefreshReceiver, new IntentFilter(DATA_REFRESHED_ACTION));
 		
 		
 		
@@ -199,7 +201,9 @@ public class MainActivity extends Activity implements SelectionListener {
 		// Unregister the BroadcastReceiver if it has been registered
         // Note: To work around a Robotium issue - check that the BroadcastReceiver
         // is not null before you try to unregister it
-        
+		if (mRefreshReceiver != null) {
+			unregisterReceiver(mRefreshReceiver);
+		}
 
 		
 		

@@ -154,16 +154,14 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 
 						// TODO: Check whether the result code is not MainActivity.IS_ALIVE
 
-						if (false || true) {
+						if (getResultCode() != MainActivity.IS_ALIVE) {
 
 							// TODO: If so, create a PendingIntent using the
 							// restartMainActivityIntent and set its flags
 							// to FLAG_UPDATE_CURRENT
+							PendingIntent pendingIntent = PendingIntent.getActivity(mApplicationContext, PendingIntent.FLAG_UPDATE_CURRENT, restartMainActivtyIntent, 0);
 
 
-
-							
-							
 
 							// Uses R.layout.custom_notification for the
 							// layout of the notification View. The xml
@@ -176,7 +174,7 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 							// TODO: Set the notification View's text to
 							// reflect whether the download completed
 							// successfully
-
+							mContentView.setTextViewText(R.id.text, successMsg);
 
 
 							
@@ -187,16 +185,21 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 							// android.R.drawable.stat_sys_warning
 							// for the small icon. You should also
 							// setAutoCancel(true).
-
-
+							Notification notification = new Notification.Builder(mApplicationContext)
+									.setContent(mContentView)
+									.setAutoCancel(true)
+									.setSmallIcon(android.R.drawable.stat_sys_warning)
+									.setContentIntent(pendingIntent)
+									.build();
 
 							
 							
 							
 							
 							// TODO: Send the notification
-
-
+							NotificationManager notificationManager =
+									(NotificationManager) mApplicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
+							notificationManager.notify(MY_NOTIFICATION_ID, notification);
 							
 							
 
